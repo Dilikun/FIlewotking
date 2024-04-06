@@ -1,3 +1,6 @@
+import os
+
+
 # first Task
 def read_recipes(filename):
     cook_book = {}
@@ -14,7 +17,6 @@ def read_recipes(filename):
     return cook_book
 
 
-cook_book = read_recipes('receipts.txt')
 # print(cook_book)
 
 # Second task
@@ -27,5 +29,35 @@ def get_shop_list_by_dishes(dishes, person_count):
             else:
                 shop_list[ingredient['ingredient_name']] = {'measure': ingredient['measure'], 'quantity': ingredient['quantity'] * person_count}
     return shop_list
+
+
+
+
+def merge_files(directory):
+    files = os.listdir(directory)
+
+    file_contents = {}
+
+    for filename in files:
+        with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
+            content = file.readlines()
+            file_contents[filename] = content
+
+    sorted_files = sorted(file_contents.items(), key=lambda x: len(x[1]))
+
+    with open('merged.txt', 'w', encoding='utf-8') as file:
+        for filename, content in sorted_files:
+            file.write(f'{filename}\n')
+            file.write(f'{len(content)}\n')
+            file.writelines(content)
+
+
+def main():
+    merge_files('some_txt')
+    cook_book = read_recipes('receipts.txt')
+
+
+if __name__ == '__main__':
+    main()
 
 
