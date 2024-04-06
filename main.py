@@ -1,3 +1,4 @@
+# first Task
 def read_recipes(filename):
     cook_book = {}
     with open(filename, 'r', encoding='utf-8') as file:
@@ -12,5 +13,19 @@ def read_recipes(filename):
             file.readline()  # пропускаем пустую строку
     return cook_book
 
+
 cook_book = read_recipes('receipts.txt')
-print(cook_book)
+# print(cook_book)
+
+# Second task
+def get_shop_list_by_dishes(dishes, person_count):
+    shop_list = {}
+    for dish in dishes:
+        for ingredient in cook_book[dish]:
+            if ingredient['ingredient_name'] in shop_list:
+                shop_list[ingredient['ingredient_name']]['quantity'] += ingredient['quantity'] * person_count
+            else:
+                shop_list[ingredient['ingredient_name']] = {'measure': ingredient['measure'], 'quantity': ingredient['quantity'] * person_count}
+    return shop_list
+
+
